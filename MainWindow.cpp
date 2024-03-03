@@ -19,8 +19,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Load saved credentials if available
     loadCredentials();
-}
 
+    // Set "Save Credentials" checkbox ticked by default
+    ui->persistentCheckBox->setChecked(true);
+}
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -36,26 +38,7 @@ void MainWindow::on_runPowerButton_clicked()
     // Construct the IPMI command
     QString ipmiCommand = "ipmitool -H " + hostname + " -U " + username + " -P " + password + " power " + command;
 
-    // Run the IPMI command and capture output
-    QProcess process;
-    process.start(ipmiCommand);
-    if (!process.waitForStarted()) {
-        ui->outputTextEdit->setPlainText("Error: Failed to start process.");
-        return;
-    }
-    if (!process.waitForFinished()) {
-        ui->outputTextEdit->setPlainText("Error: Process execution timed out.");
-        return;
-    }
-    if (process.error() != QProcess::UnknownError) {
-        ui->outputTextEdit->setPlainText("Error: " + process.errorString());
-        return;
-    }
-
-    QString output = process.readAllStandardOutput();
-
-    // Show output in the QTextEdit widget
-    ui->outputTextEdit->setPlainText(output);
+    executeCommand(ipmiCommand);
 }
 
 void MainWindow::on_runSensorButton_clicked()
@@ -66,28 +49,9 @@ void MainWindow::on_runSensorButton_clicked()
     QString command = ui->sensorComboBox->currentText();
 
     // Construct the IPMI sensor command
-    QString ipmiCommand = "ipmitool -H " + hostname + " -U " + username + " -P " + password + " sensor " + command;
+    QString ipmiCommand = "ipmitool -H " + hostname + " -U " + username + " -P " + password + " sdr";
 
-    // Run the IPMI sensor command and capture output
-    QProcess process;
-    process.start(ipmiCommand);
-    if (!process.waitForStarted()) {
-        ui->outputTextEdit->setPlainText("Error: Failed to start process.");
-        return;
-    }
-    if (!process.waitForFinished()) {
-        ui->outputTextEdit->setPlainText("Error: Process execution timed out.");
-        return;
-    }
-    if (process.error() != QProcess::UnknownError) {
-        ui->outputTextEdit->setPlainText("Error: " + process.errorString());
-        return;
-    }
-
-    QString output = process.readAllStandardOutput();
-
-    // Show output in the QTextEdit widget
-    ui->outputTextEdit->setPlainText(output);
+    executeCommand(ipmiCommand);
 }
 
 void MainWindow::on_persistentCheckBox_stateChanged(int state)
@@ -124,4 +88,29 @@ void MainWindow::loadCredentials()
     ui->hostnameLineEdit->setText(hostname);
     ui->usernameLineEdit->setText(username);
     ui->passwordLineEdit->setText(password);
+}
+
+void MainWindow::executeCommand(const QString& command)
+{
+    // Run the command and capture output
+    QProcess process;
+    QStringList args = command.split(' '); // Split the command into arguments
+    process.start(args.takeFirst(), args); // Start with the program name and the remaining arguments
+    if (!process.waitForStarted()) {
+        ui->outputTextEdit->setPlainText("Error: Failed to start process.");
+        return;
+    }
+    if (!process.waitForFinished()) {
+        ui->outputTextEdit->setPlainText("Error: Process execution timed out.");
+        return;
+    }
+    if (process.error() != QProcess::UnknownError) {
+        ui->outputTextEdit->setPlainText("Error: " + process.errorString());
+        return;
+    }
+
+    QString output = process.readAllStandardOutput();
+
+    // Show output in the QTextEdit widget
+    ui->outputTextEdit->setPlainText(output);
 }

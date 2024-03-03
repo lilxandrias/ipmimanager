@@ -20,6 +20,7 @@ private slots:
     void on_runSensorButton_clicked();
     void on_persistentCheckBox_stateChanged(int state);
     void loadCredentials();
+    void executeCommand(const QString& command); // Add this line
 
 private:
     Ui::MainWindow *ui;
