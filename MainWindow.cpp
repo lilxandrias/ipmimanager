@@ -30,7 +30,19 @@ void MainWindow::on_runButton_clicked()
     // Run the IPMI command and capture output
     QProcess process;
     process.start(ipmiCommand);
-    process.waitForFinished();
+    if (!process.waitForStarted()) {
+        ui->outputTextEdit->setPlainText("Error: Failed to start process.");
+        return;
+    }
+    if (!process.waitForFinished()) {
+        ui->outputTextEdit->setPlainText("Error: Process execution timed out.");
+        return;
+    }
+    if (process.error() != QProcess::UnknownError) {
+        ui->outputTextEdit->setPlainText("Error: " + process.errorString());
+        return;
+    }
+
     QString output = process.readAllStandardOutput();
 
     // Show output in the QTextEdit widget
