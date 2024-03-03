@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="hostnameLabel">
+      <property name="text">
+       <string>Hostname:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="hostnameLineEdit"/>
+    </item>
+    <item>
+     <widget class="QLabel" name="usernameLabel">
+      <property name="text">
+       <string>Username:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="usernameLineEdit"/>
+    </item>
+    <item>
+     <widget class="QLabel" name="passwordLabel">
+      <property name="text">
+       <string>Password:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="passwordLineEdit"/>
+    </item>
+    <item>
+     <widget class="QPushButton" name="runButton">
+      <property name="text">
+       <string>Run</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QComboBox" name="commandComboBox">
+      <item>
+       <property name="text">
+        <string>status</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>on</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>off</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>cycle</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>reset</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>diag</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>soft</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTextEdit" name="outputTextEdit"/>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
