@@ -1,6 +1,7 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 #include <QProcess>
+#include <QSettings>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -12,8 +13,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->outputTextEdit->setReadOnly(true);
 
     // Connect button signals to slots
-    connect(ui->runButton, &QPushButton::clicked, this, &MainWindow::on_runButton_clicked);
-    connect(ui->sensorButton, &QPushButton::clicked, this, &MainWindow::on_sensorButton_clicked);
+    connect(ui->runPowerButton, &QPushButton::clicked, this, &MainWindow::on_runPowerButton_clicked);
+    connect(ui->runSensorButton, &QPushButton::clicked, this, &MainWindow::on_runSensorButton_clicked);
+    connect(ui->persistentCheckBox, &QCheckBox::stateChanged, this, &MainWindow::on_persistentCheckBox_stateChanged);
+
+    // Load saved credentials if available
+    loadCredentials();
 }
 
 MainWindow::~MainWindow()
@@ -21,12 +26,12 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_runButton_clicked()
+void MainWindow::on_runPowerButton_clicked()
 {
     QString hostname = ui->hostnameLineEdit->text();
     QString username = ui->usernameLineEdit->text();
     QString password = ui->passwordLineEdit->text();
-    QString command = ui->commandComboBox->currentText();
+    QString command = ui->powerComboBox->currentText();
 
     // Construct the IPMI command
     QString ipmiCommand = "ipmitool -H " + hostname + " -U " + username + " -P " + password + " power " + command;
@@ -53,14 +58,15 @@ void MainWindow::on_runButton_clicked()
     ui->outputTextEdit->setPlainText(output);
 }
 
-void MainWindow::on_sensorButton_clicked()
+void MainWindow::on_runSensorButton_clicked()
 {
     QString hostname = ui->hostnameLineEdit->text();
     QString username = ui->usernameLineEdit->text();
     QString password = ui->passwordLineEdit->text();
+    QString command = ui->sensorComboBox->currentText();
 
     // Construct the IPMI sensor command
-    QString ipmiCommand = "ipmitool -H " + hostname + " -U " + username + " -P " + password + " sensor";
+    QString ipmiCommand = "ipmitool -H " + hostname + " -U " + username + " -P " + password + " sensor " + command;
 
     // Run the IPMI sensor command and capture output
     QProcess process;
@@ -82,4 +88,40 @@ void MainWindow::on_sensorButton_clicked()
 
     // Show output in the QTextEdit widget
     ui->outputTextEdit->setPlainText(output);
+}
+
+void MainWindow::on_persistentCheckBox_stateChanged(int state)
+{
+    // Save or remove credentials based on checkbox state
+    if (state == Qt::Checked) {
+        QString hostname = ui->hostnameLineEdit->text();
+        QString username = ui->usernameLineEdit->text();
+        QString password = ui->passwordLineEdit->text();
+
+        // Save credentials to settings
+        QSettings settings;
+        settings.setValue("hostname", hostname);
+        settings.setValue("username", username);
+        settings.setValue("password", password);
+    } else {
+        // Remove saved credentials
+        QSettings settings;
+        settings.remove("hostname");
+        settings.remove("username");
+        settings.remove("password");
+    }
+}
+
+void MainWindow::loadCredentials()
+{
+    // Load saved credentials from settings
+    QSettings settings;
+    QString hostname = settings.value("hostname").toString();
+    QString username = settings.value("username").toString();
+    QString password = settings.value("password").toString();
+
+    // Set loaded credentials in line edits
+    ui->hostnameLineEdit->setText(hostname);
+    ui->usernameLineEdit->setText(username);
+    ui->passwordLineEdit->setText(password);
 }

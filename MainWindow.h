@@ -3,21 +3,23 @@
 
 #include <QMainWindow>
 
-namespace Ui {
-    class MainWindow;
-}
+QT_BEGIN_NAMESPACE
+namespace Ui { class MainWindow; }
+QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
 private slots:
-    void on_runButton_clicked();
-    void on_sensorButton_clicked(); // Declaration of the sensor button slot
+    void on_runPowerButton_clicked();
+    void on_runSensorButton_clicked();
+    void on_persistentCheckBox_stateChanged(int state);
+    void loadCredentials();
 
 private:
     Ui::MainWindow *ui;

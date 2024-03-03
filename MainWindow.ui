@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>441</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -46,21 +46,21 @@
      <widget class="QLineEdit" name="passwordLineEdit"/>
     </item>
     <item>
-     <widget class="QPushButton" name="runButton">
+     <widget class="QCheckBox" name="persistentCheckBox">
       <property name="text">
-       <string>Run</string>
+       <string>Save Credentials</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="sensorButton">
+     <widget class="QPushButton" name="runPowerButton">
       <property name="text">
-       <string>Sensor</string>
+       <string>Run Power</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QComboBox" name="commandComboBox">
+     <widget class="QComboBox" name="powerComboBox">
       <item>
        <property name="text">
         <string>status</string>
@@ -94,6 +94,22 @@
       <item>
        <property name="text">
         <string>soft</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="runSensorButton">
+      <property name="text">
+       <string>Run Sensor</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QComboBox" name="sensorComboBox">
+      <item>
+       <property name="text">
+        <string>Sensor data</string>
        </property>
       </item>
      </widget>
