@@ -7,7 +7,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt6 COMPONENTS Widgets REQUIRED)
 
 add_executable(IPMITool_GUI
     main.cpp
@@ -16,4 +16,4 @@ add_executable(IPMITool_GUI
     MainWindow.ui
 )
 
-target_link_libraries(IPMITool_GUI PRIVATE Qt5::Widgets)
+target_link_libraries(IPMITool_GUI PRIVATE Qt6::Widgets)
