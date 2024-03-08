@@ -23,7 +23,11 @@
      </widget>
     </item>
     <item>
-     <widget class="QLineEdit" name="hostnameLineEdit"/>
+     <widget class="QLineEdit" name="hostnameLineEdit">
+      <property name="echoMode">
+       <enum>QLineEdit::Normal</enum>
+      </property>
+     </widget>
     </item>
     <item>
      <widget class="QLabel" name="usernameLabel">
@@ -120,6 +124,19 @@
     </item>
     <item>
      <widget class="QTextEdit" name="outputTextEdit"/>
+    </item>
+    <item>
+     <widget class="QLabel" name="credit">
+      <property name="text">
+       <string>Made with ❤️ by &lt;a href=&quot;https://github.com/lilxandrias/ipmimanager/&quot;&gt;lilxandrias&lt;/a&gt;</string>
+      </property>
+      <property name="textFormat">
+       <enum>Qt::AutoText</enum>
+      </property>
+      <property name="openExternalLinks">
+       <bool>true</bool>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
