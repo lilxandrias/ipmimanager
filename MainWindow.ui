@@ -6,9 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>441</height>
+    <width>350</width>
+    <height>700</height>
    </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Noto Sans</family>
+   </font>
   </property>
   <property name="windowTitle">
    <string>IPMIMANAGER</string>
@@ -128,7 +133,7 @@
     <item>
      <widget class="QLabel" name="credit">
       <property name="text">
-       <string>Made with ❤️ by &lt;a href=&quot;https://github.com/lilxandrias/ipmimanager/&quot;&gt;lilxandrias&lt;/a&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Made with ❤️ by &lt;/span&gt;&lt;a href=&quot;https://github.com/lilxandrias/ipmimanager/&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline; color:#1d99f3;&quot;&gt;lilxandrias&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="textFormat">
        <enum>Qt::AutoText</enum>
