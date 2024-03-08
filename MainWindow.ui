@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>IPMIMANAGER</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -44,9 +44,9 @@
     </item>
     <item>
      <widget class="QLineEdit" name="passwordLineEdit">
-        <property name="echoMode">
-            <enum>QLineEdit::Password</enum>
-        </property>
+      <property name="echoMode">
+       <enum>QLineEdit::Password</enum>
+      </property>
      </widget>
     </item>
     <item>
